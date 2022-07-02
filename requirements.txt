@@ -1,4 +1,8 @@
 Flask
 gunicorn
+pandas
+numpy
+ipykernel
+PYyaml
 sklearn
 -e .
