@@ -14,7 +14,7 @@ class DataIngestion:
 
     def __init__(self,data_ingestion_config:DataIngestionConfig):
         try:
-            logging.info(f"{'='*20} data ingestion log started.{'='*20}")
+            logging.info(f"{'='*20} data ingestion log started.{'='*20} \n \n")
             self.data_ingestion_config = data_ingestion_config
         except Exception as e:
             raise AvilaException(e,sys) from e 
@@ -23,34 +23,18 @@ class DataIngestion:
         try:
             # Take the url formed in configuration module
             download_url = self.data_ingestion_config.dataset_download_url
-
-            #url location to download tgz file
-            tgz_download_dir  = self.data_ingestion_config.tgz_download_dir
-            if os.path.exists(tgz_download_dir):
-                os.remove(tgz_download_dir)
-            os.makedirs(tgz_download_dir,exist_ok=True)
             Avila_file_name = os.path.basename(download_url)
-            tgz_file_path = os.path.join(tgz_download_dir,Avila_file_name)
-            logging.info(f"Download file from [{download_url}] into: [{tgz_file_path}]")
-            urllib.request.urlretrieve(download_url,tgz_file_path)
-            logging.info(f"File is successfully downloaded into [{Avila_file_name}]")
-            print(f"Hii tgz file path is {tgz_file_path} ")
-            return tgz_file_path
+            raw_data_dir = self.data_ingestion_config.raw_data_dir
+            data_frame = pd.read_csv(download_url)
+            logging.info(f"Data Frame is created")
+            os.makedirs(raw_data_dir,exist_ok=True)
+            csv_file_path = os.path.join(raw_data_dir,Avila_file_name)
+            data_frame.to_csv(csv_file_path,index=False)
+            logging.info(f"CSV file is downloaded into Raw data Directory")
         except Exception as e:
             raise AvilaException(e,sys) from e
 
-    def extract_tgz_file(self,tgz_file_path:str):
-        try:
-            raw_data_dir = self.data_ingestion_config.raw_data_dir
-            if os.path.exists(raw_data_dir):
-                os.remove(raw_data_dir)
-            os.makedirs(raw_data_dir,exist_ok=True)
-            logging.info(f"Extracting tgz file: [{tgz_file_path}] into dir [{raw_data_dir}]")
-            with tarfile.open(tgz_file_path) as Avila_tgz_file_obj:
-                Avila_tgz_file_obj.extractall(path=raw_data_dir)
-            logging.info(f"Extraction Completed")
-        except Exception as e:
-            raise AvilaException(e,sys) from e
+   
 
 
     def split_as_train_test(self)->DataIngestionArtifact:
@@ -79,7 +63,7 @@ class DataIngestion:
                 strat_train_set.to_csv(train_file_path,index=False)
 
             if strat_test_set is not None:
-                os.makedirs(self.data_ingested_test_dir,test_file_path,exist_ok=True)
+                os.makedirs(self.data_ingestion_config.ingested_test_dir,exist_ok=True)
                 logging.info(f"Exporting test file into [{test_file_path}]")
                 strat_test_set.to_csv(test_file_path,index=False)
             
@@ -95,8 +79,11 @@ class DataIngestion:
 
     def initiate_data_ingestion(self)->DataIngestionArtifact:
         try:
-            tgz_file_path = self.dowload_Avila_data()
-            self.extract_tgz_file(tgz_file_path)
+          
+            self.dowload_Avila_data()
             return self.split_as_train_test()
         except Exception as e:
             raise AvilaException(e,sys) from e
+
+    def __del__(self):
+        logging.info(f"{'='*30} Data Ingestion log completed.{'='*60}\n \n ")
