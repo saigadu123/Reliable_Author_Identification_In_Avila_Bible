@@ -1,2 +1,14 @@
 columns:
-  intercolumnar_distance:
+  intercolumnar_distance: float
+  upper_margin : float
+  lower_margin : float
+  exploitation : float
+  row_number : float
+  modular_ratio : float
+  inter_linear_spacing : float
+  weight : float
+  peak_number : float
+  modular_ratio : float
+
+target_column : class 
+

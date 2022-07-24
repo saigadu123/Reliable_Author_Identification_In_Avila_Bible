@@ -3,9 +3,11 @@ import os,sys
 from Avila.config.configuration import Configuration
 from Avila.logger import logging
 from Avila.exception import AvilaException
-from Avila.entity.config_entity import DataIngestionConfig
-from Avila.entity.artifact_entity import DataIngestionArtifact
+from Avila.entity.config_entity import DataIngestionConfig,DataValidationConfig
+from Avila.entity.artifact_entity import DataIngestionArtifact, DataValidationArtifact
 from Avila.component.data_ingestion import DataIngestion
+from Avila.component.data_validation import DataValidation
+
 
 class Pipeline:
 
@@ -22,9 +24,10 @@ class Pipeline:
         except Exception as e:
             raise AvilaException(e,sys)
 
-    def start_data_validation(self):
+    def start_data_validation(self,data_ingestion_artifact:DataIngestionArtifact)->DataValidationArtifact:
         try:
-            pass
+            data_validation = DataValidation(data_validation_config = self.config.get_data_validation_config(),data_ingestion_artifact=data_ingestion_artifact)
+            return data_validation.initiate_data_validation()
         except Exception as e:
             raise AvilaException(e,sys) from e 
 
@@ -55,6 +58,7 @@ class Pipeline:
     def run_pipeline(self):
         try:
             data_ingestion_artifact = self.start_data_ingestion()
+            data_validation_artifact = self.start_data_validation(data_ingestion_artifact=data_ingestion_artifact)
         except Exception as e:
             raise AvilaException(e,sys) from e 
 

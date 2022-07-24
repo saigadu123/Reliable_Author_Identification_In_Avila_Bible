@@ -50,7 +50,40 @@ class Configuration:
 
     def get_data_validation_config(self)->DataValidationConfig:
         try:
-            pass
+            artifact_dir = self.training_pipeline_config.artifact_dir
+            # File path of the Data Validation Artifact Dir
+            data_validation_artifact_dir = os.path.join(
+            artifact_dir,
+            DATA_VALIDATION_ARTIFACT_DIR_NAME,
+            self.time_stamp
+            )
+            data_validation_config = self.config[DATA_VALIDATION_CONFIG_KEY]
+            # report file path
+            report_file_path = os.path.join(data_validation_artifact_dir,
+
+            data_validation_config[DATA_VALIDATION_REPORT_FILE_NAME_KEY]
+            )
+            # report page file path
+            report_page_file_path = os.path.join(data_validation_artifact_dir,
+            data_validation_config[DATA_VALIDATION_REPORT_PAGE_FILE_NAME_KEY]
+            )
+            # Profile file path
+            profile_file_path = os.path.join(data_validation_artifact_dir,
+            data_validation_config[DATA_VALIDATION_PROFILE_DIR_KEY]
+            )
+            # schema file path
+            schema_file_path = os.path.join(
+            ROOT_DIR,
+            data_validation_config[DATA_VALIDATION_SCHEMA_DIR_KEY],
+            data_validation_config[DATA_VALIDATION_SCHEMA_FILE_NAME_KEY]
+            )
+            data_validation_config = DataValidationConfig(
+                schema_file_path = schema_file_path,
+                report_file_path = report_file_path,
+                report_page_file_path = report_page_file_path,
+                profile_file_path = profile_file_path
+            )
+            return data_validation_config 
         except Exception as e:
             raise AvilaException(e,sys) from e 
 
