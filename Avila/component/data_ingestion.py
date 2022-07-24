@@ -51,8 +51,8 @@ class DataIngestion:
     
             split = StratifiedShuffleSplit(n_splits=1,test_size=0.2,random_state=42)
             for train_index,test_index in split.split(Avila_data_frame,Avila_data_frame['class']):
-                strat_train_set = Avila_data_frame.loc[train_index].drop(["class"],axis=1)
-                strat_test_set = Avila_data_frame.loc[test_index].drop(["class"],axis=1)
+                strat_train_set = Avila_data_frame.loc[train_index]
+                strat_test_set = Avila_data_frame.loc[test_index]
 
             train_file_path = os.path.join(self.data_ingestion_config.ingested_train_dir,filename)
             test_file_path = os.path.join(self.data_ingestion_config.ingested_test_dir,filename)
