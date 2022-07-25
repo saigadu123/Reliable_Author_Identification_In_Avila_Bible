@@ -44,7 +44,7 @@ class DataIngestion:
             Avila_file_path = os.path.join(raw_data_dir,filename)
             logging.info(f"Reading CSV file from [{Avila_file_path}]")
             Avila_data_frame = pd.read_csv(Avila_file_path)
-            Avila_data_frame.columns = ["Intercolumnar_distance","upper_margin","lower_margin","exploitation","row_number","modular_ratio","inter_linear_spacing","weight","peak_number","modular_ratio","class"]
+            Avila_data_frame.columns = ["Intercolumnar_distance","upper_margin","lower_margin","exploitation","row_number","modular_ratio","inter_linear_spacing","weight","peak_number","modular_ratio/inter_linear_spacing","class"]
             logging.info("Splitting Dataset into train and test")
             strat_train_set = None
             strat_test_set = None
