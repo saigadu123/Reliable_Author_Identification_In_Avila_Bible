@@ -1,5 +1,5 @@
 columns:
-  intercolumnar_distance: float
+  Intercolumnar_distance: float
   upper_margin : float
   lower_margin : float
   exploitation : float
@@ -9,11 +9,12 @@ columns:
   weight : float
   peak_number : float
   modular_ratio/inter_linear_spacing : float
+  class : category
 
 target_column : class 
 
 numerical_columns:
-  - intercolumnar_distance
+  - Intercolumnar_distance
   - upper_margin
   - lower_margin
   - exploitation
@@ -21,5 +22,6 @@ numerical_columns:
   - modular_ratio
   - inter_linear_spacing
   - weight
-  - peak_number/inter_linear_spacing
+  - peak_number
+  - modular_ratio/inter_linear_spacing
 
