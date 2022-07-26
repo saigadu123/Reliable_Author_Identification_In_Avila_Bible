@@ -21,7 +21,7 @@ data_validation_config:
   
 
 data_transformation_config:
-  add_bedroom_per_room: true
+  add_total_margin_space: true
   transformed_dir: transformed_data
   transformed_train_dir: train
   transformed_test_dir: test

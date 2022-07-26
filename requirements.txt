@@ -6,4 +6,5 @@ ipykernel
 PYyaml
 sklearn
 evidently
+dill
 -e .

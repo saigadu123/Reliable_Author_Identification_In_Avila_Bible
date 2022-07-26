@@ -8,7 +8,18 @@ columns:
   inter_linear_spacing : float
   weight : float
   peak_number : float
-  modular_ratio : float
+  modular_ratio/inter_linear_spacing : float
 
 target_column : class 
+
+numerical_columns:
+  - intercolumnar_distance
+  - upper_margin
+  - lower_margin
+  - exploitation
+  - row_number
+  - modular_ratio
+  - inter_linear_spacing
+  - weight
+  - peak_number/inter_linear_spacing
 

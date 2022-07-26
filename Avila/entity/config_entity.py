@@ -4,7 +4,7 @@ DataIngestionConfig = namedtuple("DataIngestionConfig",["dataset_download_url","
 
 DataValidationConfig = namedtuple("DataValidationConfig",["schema_file_path","report_file_path","report_page_file_path","profile_file_path"])
 
-DataTransformationconfig = namedtuple("DataTransformationConfig",["add","transformed_train_dir","transformed_test_dir","preprocessed_object_file_path"])
+DataTransformationconfig = namedtuple("DataTransformationConfig",["add_total_margin_space","transformed_train_dir","transformed_test_dir","preprocessed_object_file_path"])
 
 ModelTrainerConfig = namedtuple("ModelTrainer",["trained_model_file_path","base_accuracy"])
 
