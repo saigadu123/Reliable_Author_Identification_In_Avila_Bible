@@ -102,6 +102,9 @@ class DataTransformation:
             train_df = load_data(file_path=train_file_path,schema_file_path=schema_file_path)
             test_df = load_data(file_path = test_file_path,schema_file_path=schema_file_path)
 
+            logging.info(f"Removing columns having multicolinearity")
+            train_df.drop(columns=["modular_ratio/inter_linear_spacing"],axis=1)
+
             schema = read_yaml_file(file_path=schema_file_path)
 
             target_column_name = schema[TARGET_COLUMN_KEY]
