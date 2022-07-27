@@ -1,0 +1,44 @@
+grid_search:
+  class : GridSearchCV
+  model : sklearn.model_selection
+  params:
+    cv : 5
+    verbose : 2 
+
+model_selection:
+  module_0:
+    class: SVC
+    module: sklearn.svm
+    params: 
+      kernel: rbf
+      gamma : scale
+    search_param_grid:
+      kernel:
+        - rbf
+        - poly
+        - sigmoid
+      degree:
+        - 2
+        - 4
+      gamma:
+        - scale
+        - auto 
+
+  module_1:
+    class: RandomForestClassifier
+    module: sklearn.ensemble
+    params:
+      criterion: gini
+      max_depth: 3
+      min_samples_split: 2
+      min_samples_leaf: 2
+    search_param_grid:
+      criterion:
+        - gini
+        - entropy
+        - log_loss
+      max_depth:
+        - 3
+        - 4
+        - 5
+      
