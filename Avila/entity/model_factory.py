@@ -32,7 +32,7 @@ def evaluate_classification_model(model_list:list,x_train:np.ndarray,y_train:np.
     try:
         index_number = 0
         metric_info_artifact = None
-    
+        logging.info(f"Models to Evaluate {model_list}")
         for model in model_list:
             model_name = str(model)
             logging.info(f"{'>>'*30}Started evaluating model: [{type(model).__name__}] {'<<'*30}")
@@ -81,10 +81,12 @@ class ModelFactory:
     def __init__(self,model_config_path:str=None,):
         try:
             self.config:dict = ModelFactory.read_params(config_path=model_config_path)
+            logging.info(f"getting full dictionary:{self.config}")
             self.grid_search_cv_module = self.config[GRID_SEARCH_KEY][MODULE_KEY]
             self.grid_search_cv_name = self.config[GRID_SEARCH_KEY][CLASS_KEY]
             self.grid_search_property_data = dict(self.config[GRID_SEARCH_KEY][PARAM_KEY])
             self.models_initialization_config = dict(self.config[MODEL_SELECTION_KEY])
+            logging.info(f"getting models dictionary: {self.models_initialization_config}")
             self.initialized_model_list=None
             self.grid_searched_best_model_list=None 
         except Exception as e:
@@ -165,7 +167,7 @@ class ModelFactory:
                                                                     param_grid_search = param_grid_search,
                                                                     model_name=model_name)
                 initialized_model_list.append(model_initialization_config)
-                return initialized_model_list 
+            return initialized_model_list 
         except Exception as e:
             raise AvilaException(e,sys) from e 
 
