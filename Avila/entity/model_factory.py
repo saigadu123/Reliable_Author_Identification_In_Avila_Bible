@@ -69,9 +69,9 @@ def evaluate_classification_model(model_list:list,x_train:np.ndarray,y_train:np.
                                                         index_number=index_number)
                 logging.info(f"Acceptable model found {metric_info_artifact}. ")
             index_number = index_number+1
-            if metric_info_artifact is None:
-                logging.info(f"No model found with higher accuracy than base accuracy")
-            return metric_info_artifact
+        if metric_info_artifact is None:
+            logging.info(f"No model found with higher accuracy than base accuracy")
+        return metric_info_artifact
     except Exception as e:
         raise AvilaException(e,sys) from e 
 
