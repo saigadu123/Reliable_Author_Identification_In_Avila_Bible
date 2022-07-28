@@ -104,17 +104,19 @@ class DataTransformation:
 
             logging.info(f"Removing columns having multicolinearity")
             train_df.drop(columns=["modular_ratio/inter_linear_spacing"],axis=1)
-
+            conversion_dict = {'A':0,'B':1,'C':2,'D':3,'E':4,'F':5,'G':6,'H':7,'I':8,'W':9,'X':10,'Y':11}
+            train_df['class']= train_df['class'].map(conversion_dict)
+            test_df['class']=test_df['class'].map(conversion_dict) 
             schema = read_yaml_file(file_path=schema_file_path)
 
             target_column_name = schema[TARGET_COLUMN_KEY]
             logging.info(f"splitting input feature and target feature from training and testing data")
             input_feature_train_df = train_df.drop(columns=[target_column_name],axis=1)
             target_feature_train_df = train_df[target_column_name]
-
+            
             input_feature_test_df = test_df.drop(columns=[target_column_name],axis=1)
             target_feature_test_df = test_df[target_column_name]
-
+            
             logging.info(f"Applying preprocessing on training and testing input features")
             input_feature_train_arr = preprocessed_obj.fit_transform(input_feature_train_df)
             input_feature_test_arr = preprocessed_obj.fit_transform(input_feature_test_df)

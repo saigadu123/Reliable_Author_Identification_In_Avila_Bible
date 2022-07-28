@@ -138,7 +138,7 @@ class Configuration:
             )
             base_accuracy = model_trainer_config_info[MODEL_TRAINER_BASE_ACCURACY_KEY]
             model_config_file_path = os.path.join(
-                model_trainer_artifact_dir,
+                ROOT_DIR,
                 model_trainer_config_info[MODEL_TRAINER_MODEL_CONFIG_DIR_KEY],
                 model_trainer_config_info[MODEL_TRAINER_MODEL_CONFIG_FILE_NAME_KEY]
             )

@@ -1,6 +1,6 @@
 grid_search:
   class : GridSearchCV
-  model : sklearn.model_selection
+  module : sklearn.model_selection
   params:
     cv : 5
     verbose : 2 
@@ -22,7 +22,8 @@ model_selection:
         - 4
       gamma:
         - scale
-        - auto 
+        - auto
+      
 
   module_1:
     class: RandomForestClassifier
