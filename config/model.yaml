@@ -44,14 +44,25 @@ model_selection:
         - 4 
 
   module_2:
-    class: AdaBoostClassifier
-    module: sklearn.ensemble
+    class: LogisticRegression
+    module: sklearn.linear_model
     params:
-      n_estimators: 70
-      algorithm: SAMME
+      penalty: l2
+      solver: lbfgs
+      multi_class: ovr
     search_param_grid:
-      algorithm:
-        - SAMME.R
+      penalty:
+        - l1
+        - l2
+      solver:
+        - lbfgs
+        - newton-cg
+        - sag
+        - saga
+      multi_class:
+        - ovr
+        - multinomial
+      
 
   
       
