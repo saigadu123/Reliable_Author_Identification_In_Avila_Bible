@@ -24,44 +24,21 @@ model_selection:
       gamma:
         - scale
         - auto
+ 
   module_1:
-    class: RandomForestClassifier
-    module: sklearn.ensemble
-    params:
-      criterion: gini
-      max_depth: 3
-      min_samples_split: 2
-      min_samples_leaf: 2
-    search_param_grid:
-      criterion:
-        - gini
-        - entropy
-      max_depth:
-        - 3
-        - 4
-      min_samples_split:
-        - 3
-        - 4 
-
-  module_2:
-    class: LogisticRegression
+    class: SGDClassifier
     module: sklearn.linear_model
     params:
+      loss : hinge
       penalty: l2
-      solver: lbfgs
-      multi_class: ovr
     search_param_grid:
+      loss:
+        - hinge
       penalty:
         - l1
         - l2
-      solver:
-        - lbfgs
-        - newton-cg
-        - sag
-        - saga
-      multi_class:
-        - ovr
-        - multinomial
+        - elasticnet
+      
       
 
   

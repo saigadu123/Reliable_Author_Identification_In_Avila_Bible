@@ -11,7 +11,7 @@ import pandas as pd
 from collections import namedtuple
 from typing import List
 from Avila.logger import logging 
-from sklearn.metrics import roc_auc_score,accuracy_score
+from sklearn.metrics import roc_auc_score,accuracy_score,confusion_matrix
 
 GRID_SEARCH_KEY = "grid_search"
 MODULE_KEY = "module"
@@ -44,8 +44,12 @@ def evaluate_classification_model(model_list:list,x_train:np.ndarray,y_train:np.
             
             #Calculating roc_auc_score for training and testing datasets
             train_acc = accuracy_score(y_train,train_pred)
-           
             test_acc = accuracy_score(y_test,test_pred)
+
+            #Getting Confusion matrix
+            con_max = confusion_matrix(y_test,test_pred)
+            print(con_max)
+            logging.info(f"Confusion matrix is {con_max}")
 
             #Calculating harmonic mean of training and test accuracy
             model_accuracy = (2*(train_acc*test_acc)/(train_acc+test_acc))
