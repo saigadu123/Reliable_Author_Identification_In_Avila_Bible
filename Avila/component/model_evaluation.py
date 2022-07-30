@@ -19,18 +19,21 @@ class ModelEvaluation:
                 data_validation_artifact:DataValidationArtifact,
                 model_trainer_artifact:ModelTrainerArtifact):
         try:
-            self.model_evaluation_config= model_evaluation_config,
-            self.data_ingestion_artifact = data_ingestion_artifact,
-            self.data_validation_artifact = data_validation_artifact,
+            logging.info(f"{'>>' * 30}Model Evaluation log started.{'<<' * 30} ")
+            self.model_evaluation_config= model_evaluation_config
+            self.data_ingestion_artifact = data_ingestion_artifact
+            self.data_validation_artifact = data_validation_artifact
             self.model_trainer_artifact = model_trainer_artifact
+
         except Exception as e:
             raise AvilaException(e,sys) from e 
 
     def get_best_model(self):
         try:
             model = None
-            model_evaluation_file_path = self.model_evaluation_config.model.model_evaluation_file_path
+            model_evaluation_file_path = self.model_evaluation_config.model_evaluation_file_path
             if not os.path.exists(model_evaluation_file_path):
+                write_yaml_file(file_path=model_evaluation_file_path,)
                 return model 
             model_evaluation_file_content = read_yaml_file(file_path=model_evaluation_file_path)
             model_evaluation_file_content = dict() if model_evaluation_file_content is None else model_evaluation_file_content 
@@ -123,7 +126,7 @@ class ModelEvaluation:
                                                                 y_train = train_target_arr,
                                                                 x_test = test_df,
                                                                 y_test = test_target_arr,
-                                                                base_accuracy=self.model_trainer_artifact.base_accuracy)
+                                                                base_accuracy=self.model_trainer_artifact.model_accuracy)
 
             logging.info(f"Model evaluation completed. model metric artifact: {metric_info_artifact}")
             if metric_info_artifact is None:

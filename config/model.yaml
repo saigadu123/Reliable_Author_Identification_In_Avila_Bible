@@ -9,9 +9,9 @@ model_selection:
   module_0:
     class: SVC
     module: sklearn.svm
-    params: 
+    params:
       kernel: rbf
-      gamma : scale
+      gamma: scale
     search_param_grid:
       kernel:
         - rbf
@@ -24,7 +24,7 @@ model_selection:
       gamma:
         - scale
         - auto
- 
+        
   module_1:
     class: SGDClassifier
     module: sklearn.linear_model
