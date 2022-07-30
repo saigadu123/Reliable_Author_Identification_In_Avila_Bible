@@ -42,7 +42,7 @@ class DataValidation:
 
             is_train_file_exists = os.path.exists(train_file_path)
             is_test_file_exists = os.path.exists(test_file_path)
-
+            
             is_available = is_train_file_exists and is_test_file_exists
             
             logging.info(f"Is training and testing file exists?-> {is_available}")
@@ -53,7 +53,7 @@ class DataValidation:
                 message = f"Training file: [{training_filename}] and test file [{test_filename}] are not present"
                 raise Exception(message)
             return is_available
-           
+        
         except Exception as e:
             raise AvilaException(e,sys) from e 
 

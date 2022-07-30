@@ -154,7 +154,14 @@ class Configuration:
 
     def get_model_evaluation_config(self)->ModelEvaluationConfig:
         try:
-            pass
+            model_evaluation_config_info = self.config[MODEL_EVALUATION_CONFIG_KEY]
+            artifact_dir = os.path.join(self.training_pipeline_config.artifact_dir,MODEL_EVALUATION_ARTIFACT_DIR)
+            model_evaluation_file_path = os.path.join(artifact_dir,model_evaluation_config_info[MODEL_EVALUATION_FILE_NAME_KEY])
+            model_evaluation_config = ModelEvaluationConfig(
+                model_evaluation_file_path=model_evaluation_file_path,
+                time_stamp=self.time_stamp 
+            )
+            return model_evaluation_config 
         except Exception as e:
             raise AvilaException(e,sys) from e 
 

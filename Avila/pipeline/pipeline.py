@@ -4,11 +4,12 @@ from Avila.config.configuration import Configuration
 from Avila.logger import logging
 from Avila.exception import AvilaException
 from Avila.entity.config_entity import DataIngestionConfig,DataValidationConfig,DataTransformationconfig
-from Avila.entity.artifact_entity import DataIngestionArtifact, DataTransformationArtifact, DataValidationArtifact
+from Avila.entity.artifact_entity import DataIngestionArtifact, DataTransformationArtifact, DataValidationArtifact,ModelTrainerArtifact
 from Avila.component.data_ingestion import DataIngestion
 from Avila.component.data_validation import DataValidation
 from Avila.component.data_transformation import DataTransformation 
 from Avila.component.model_trainer import ModelTrainer
+from Avila.component.model_evaluation import ModelEvaluation
 
 
 class Pipeline:
@@ -49,9 +50,14 @@ class Pipeline:
         except Exception as e:
             raise AvilaException(e,sys) from e 
 
-    def start_model_evaluation(self):
+    def start_model_evaluation(self,data_ingestion_artifact:DataIngestionArtifact,data_validation_artifact:DataValidationArtifact,model_trainer_artifact:ModelTrainerArtifact):
         try:
-            pass
+            model_evaluation = ModelEvaluation(model_evaluation_config=self.config.get_model_evaluation_config(),
+                                                data_ingestion_artifact=data_ingestion_artifact,
+                                                data_validation_artifact=data_validation_artifact,
+                                                model_trainer_artifact=model_trainer_artifact) 
+            return model_evaluation.initiate_model_evaluation()
+            
         except Exception as e:
             raise AvilaException(e,sys) from e 
 
@@ -67,6 +73,7 @@ class Pipeline:
             data_validation_artifact = self.start_data_validation(data_ingestion_artifact=data_ingestion_artifact)
             data_transformation_artifact = self.start_data_transformation(data_ingestion_artifact=data_ingestion_artifact,data_validation_artifact=data_validation_artifact)
             model_trainer_artifact = self.start_model_trainer(data_transformation_artifact=data_transformation_artifact)
+            model_evaluation_artifact = self.start_model_evaluation(data_ingestion_artifact = data_ingestion_artifact,data_validation_artifact = data_validation_artifact,model_trainer_artifact = model_trainer_artifact)
         except Exception as e:
             raise AvilaException(e,sys) from e 
 
