@@ -7,4 +7,5 @@ PYyaml
 sklearn
 evidently
 dill
+matplotlib
 -e .
