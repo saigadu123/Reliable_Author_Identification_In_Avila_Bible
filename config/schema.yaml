@@ -9,9 +9,9 @@ columns:
   weight : float
   peak_number : float
   modular_ratio/inter_linear_spacing : float
-  class : category
+  Class : category
 
-target_column : class 
+target_column : Class 
 
 numerical_columns:
   - Intercolumnar_distance

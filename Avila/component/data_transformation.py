@@ -101,12 +101,14 @@ class DataTransformation:
 
             train_df = load_data(file_path=train_file_path,schema_file_path=schema_file_path)
             test_df = load_data(file_path = test_file_path,schema_file_path=schema_file_path)
+            
 
             logging.info(f"Removing columns having multicolinearity")
             train_df.drop(columns=["modular_ratio/inter_linear_spacing"],axis=1)
+            test_df.drop(columns=["modular_ratio/inter_linear_spacing"],axis=1)
             conversion_dict = {'A':0,'B':1,'C':2,'D':3,'E':4,'F':5,'G':6,'H':7,'I':8,'W':9,'X':10,'Y':11}
-            train_df['class']= train_df['class'].map(conversion_dict)
-            test_df['class']=test_df['class'].map(conversion_dict) 
+            train_df['Class']= train_df['Class'].map(conversion_dict)
+            test_df['Class']=test_df['Class'].map(conversion_dict) 
             schema = read_yaml_file(file_path=schema_file_path)
 
             target_column_name = schema[TARGET_COLUMN_KEY]

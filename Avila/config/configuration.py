@@ -167,7 +167,13 @@ class Configuration:
 
     def get_model_pusher_config(self)->ModelPusherConfig:
         try:
-            pass
+            timestamp = f"{datetime.now().strftime('%Y%m%d%H%M%S')}"
+            model_pusher_config_info = self.config[MODEL_PUSHER_CONFIG_KEY]
+            export_dir_path = os.path.join(ROOT_DIR,model_pusher_config_info[MODEL_PUSHER_EXPORT_DIR_KEY],timestamp)
+            model_pusher_config = ModelPusherConfig(
+                export_dir_path=export_dir_path
+            )
+            return model_pusher_config 
         except Exception as e:
             raise AvilaException(e,sys) from e 
 

@@ -92,8 +92,8 @@ class ModelEvaluation:
             test_df = load_data(file_path=test_file_path,schema_file_path=schema_file_path)
 
             conversion_dict = {'A':0,'B':1,'C':2,'D':3,'E':4,'F':5,'G':6,'H':7,'I':8,'W':9,'X':10,'Y':11}
-            train_df['class']= train_df['class'].map(conversion_dict)
-            test_df['class']=test_df['class'].map(conversion_dict)
+            train_df['Class']= train_df['Class'].map(conversion_dict)
+            test_df['Class']=test_df['Class'].map(conversion_dict)
 
             schema_content = read_yaml_file(file_path=schema_file_path)
             target_column_name = schema_content[TARGET_COLUMN_KEY]
