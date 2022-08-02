@@ -2,6 +2,7 @@ import os,sys
 from Avila.exception import AvilaException
 from Avila.util.util import load_object 
 import pandas as pd
+from Avila.logger import logging
 
 class AuthorData:
 
@@ -14,6 +15,7 @@ class AuthorData:
                 inter_linear_spacing:float,
                 weight:float,
                 peak_number:float,
+                modular_per_inter:float,
                 Class: object =None):
         try:
             self.Intercolumnar_distance=Intercolumnar_distance,
@@ -25,6 +27,7 @@ class AuthorData:
             self.inter_linear_spacing = inter_linear_spacing,
             self.weight = weight,
             self.peak_number = peak_number
+            self.modular_per_inter = modular_per_inter
             self.Class = Class  
         except Exception as e:
             raise AvilaException(e,sys) from e 
@@ -47,7 +50,8 @@ class AuthorData:
                 "modular_ratio":[self.modular_ratio],
                 "inter_linear_spacing":[self.inter_linear_spacing],
                 "weight":[self.weight],
-                "peak_number":[self.peak_number]
+                "peak_number":[self.peak_number],
+                "modular_per_inter": [self.modular_per_inter]
             }
             return input_data 
         except Exception as e:
@@ -76,6 +80,7 @@ class AuthorPredictor:
             model_path = self.get_latest_model_path()
             model = load_object(file_path=model_path)
             conversion_dict = {0:'A',1:'B',2:'C',3:'D',4:'E',5:'F',6:'G',7:'H',8:'I',9:'W',10:'X',11:'Y'}
+            logging.info(f"The columns to predict are {X.columns}")
             Author_name = model.predict(X)
             return conversion_dict[Author_name]
         except Exception as e:

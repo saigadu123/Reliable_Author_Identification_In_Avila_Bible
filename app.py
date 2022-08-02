@@ -105,6 +105,7 @@ def predict():
         inter_linear_spacing = float(request.form["inter_linear_spacing"])
         weight = float(request.form["weight"])
         peak_number = float(request.form["peak_number"])
+        modular_per_inter = float(request.form["modular_per_inter"])
 
         author_data = AuthorData(Intercolumnar_distance=Intercolumnar_distance,
                                 upper_margin = upper_margin,
@@ -114,7 +115,9 @@ def predict():
                                 modular_ratio = modular_ratio,
                                 inter_linear_spacing = inter_linear_spacing,
                                 weight = weight,
-                                peak_number = peak_number)
+                                peak_number = peak_number,
+                                mdoular_per_inter = modular_per_inter
+                                )
         avila_df = author_data.get_avila_input_data_frame()
         avila_predictor = AuthorPredictor(model_dir=MODEL_DIR)
         author_name = avila_predictor.predict(X=avila_df)

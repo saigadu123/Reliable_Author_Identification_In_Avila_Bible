@@ -1,0 +1,16 @@
+{
+      "Rows": 8344,
+      "Columns": 10,
+      "Column_names": [
+            "Intercolumnar_distance",
+            "upper_margin",
+            "lower_margin",
+            "exploitation",
+            "row_number",
+            "modular_ratio",
+            "inter_linear_spacing",
+            "weight",
+            "peak_number",
+            "Class"
+      ]
+}

@@ -44,11 +44,15 @@ class DataIngestion:
             Avila_file_path = os.path.join(raw_data_dir,filename)
             logging.info(f"Reading CSV file from [{Avila_file_path}]")
             Avila_data_frame = pd.read_csv(Avila_file_path)
-            Avila_data_frame.columns = ["Intercolumnar_distance","upper_margin","lower_margin","exploitation","row_number","modular_ratio","inter_linear_spacing","weight","peak_number","modular_ratio/inter_linear_spacing","Class"]
+
+            
+            logging.info(f"Removing columns having multicolinearity")
+            Avila_data_frame.drop(columns=["modular_ratio/inter_linear_spacing"])
+            logging.info(f"columns in Avila dataframe are {Avila_data_frame.columns}")
             logging.info("Splitting Dataset into train and test")
             strat_train_set = None
             strat_test_set = None
-    
+            columns = ["Intercolumnar_distance","upper_margin","lower_margin","exploitation","row_number","modular_ratio","inter_linear_spacing","weight","peak_number","modular_ratio/inter_linear_spacing","Class"]
             split = StratifiedShuffleSplit(n_splits=1,test_size=0.2,random_state=42)
             for train_index,test_index in split.split(Avila_data_frame,Avila_data_frame['Class']):
                 strat_train_set = Avila_data_frame.loc[train_index]
@@ -60,12 +64,12 @@ class DataIngestion:
             if strat_train_set is not None:
                 os.makedirs(self.data_ingestion_config.ingested_train_dir,exist_ok=True)
                 logging.info(f"Exporting train file into [{train_file_path}]")
-                strat_train_set.to_csv(train_file_path,index=False)
+                strat_train_set.to_csv(train_file_path,index=False,columns=columns)
 
             if strat_test_set is not None:
                 os.makedirs(self.data_ingestion_config.ingested_test_dir,exist_ok=True)
                 logging.info(f"Exporting test file into [{test_file_path}]")
-                strat_test_set.to_csv(test_file_path,index=False)
+                strat_test_set.to_csv(test_file_path,index=False,columns=columns)
             
             data_ingestion_artifact = DataIngestionArtifact(
                 train_file_path = train_file_path,
