@@ -59,7 +59,7 @@ def render_artifact_dir(req_path):
     }
     return render_template('files.html', result=result)
 
-@app.route('/', methods=['POST'])
+@app.route('/', methods=['GET','POST'])
 def index():
     try:
         return render_template('index.html')
