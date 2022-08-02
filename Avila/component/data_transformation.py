@@ -1,5 +1,4 @@
 from cgi import test
-from msilib import schema
 from sklearn import preprocessing
 from Avila.logger import logging
 from Avila.exception import AvilaException
