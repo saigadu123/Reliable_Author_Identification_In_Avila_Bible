@@ -116,7 +116,7 @@ def predict():
                                 inter_linear_spacing = inter_linear_spacing,
                                 weight = weight,
                                 peak_number = peak_number,
-                                mdoular_per_inter = modular_per_inter
+                                modular_per_inter = modular_per_inter
                                 )
         avila_df = author_data.get_avila_input_data_frame()
         avila_predictor = AuthorPredictor(model_dir=MODEL_DIR)
