@@ -35,23 +35,23 @@ class AuthorData:
     def get_avila_input_data_frame(self)->pd.DataFrame:
         try:
             Avila_input_dict = self.get_Avila_data_as_dict()
-            return pd.DataFrame(Avila_input_dict)
+            return pd.DataFrame(Avila_input_dict,index=[0])
         except Exception as e:
             raise AvilaException(e,sys) from e 
 
     def get_Avila_data_as_dict(self):
         try:
             input_data = {
-                "Intercolumnar_distance":[self.Intercolumnar_distance],
-                "upper_margin":[self.upper_margin],
-                "lower_margin":[self.lower_margin],
-                "exploitation":[self.exploitation],
-                "row_number":[self.row_number],
-                "modular_ratio":[self.modular_ratio],
-                "inter_linear_spacing":[self.inter_linear_spacing],
-                "weight":[self.weight],
-                "peak_number":[self.peak_number],
-                "modular_ratio/inter_linear_spacing": [self.modular_per_inter]
+                "Intercolumnar_distance":self.Intercolumnar_distance,
+                "upper_margin":self.upper_margin,
+                "lower_margin":self.lower_margin,
+                "exploitation":self.exploitation,
+                "row_number":self.row_number,
+                "modular_ratio":self.modular_ratio,
+                "inter_linear_spacing":self.inter_linear_spacing,
+                "weight":self.weight,
+                "peak_number":self.peak_number,
+                "modular_ratio/inter_linear_spacing": self.modular_per_inter
             }
             return input_data 
         except Exception as e:
@@ -80,9 +80,9 @@ class AuthorPredictor:
             model_path = self.get_latest_model_path()
             model = load_object(file_path=model_path)
             conversion_dict = {0:'A',1:'B',2:'C',3:'D',4:'E',5:'F',6:'G',7:'H',8:'I',9:'W',10:'X',11:'Y'}
-            logging.info(f"The columns to predict are {X.columns}")
+            logging.info(f"The columns to predict are {X} and type of x is{type(X)}")
             Author_name = model.predict(X)
-            return conversion_dict[Author_name]
+            return conversion_dict[Author_name[0]]
         except Exception as e:
             raise AvilaException(e,sys) from e 
 

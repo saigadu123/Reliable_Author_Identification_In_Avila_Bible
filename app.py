@@ -119,10 +119,11 @@ def predict():
                                 modular_per_inter = modular_per_inter
                                 )
         avila_df = author_data.get_avila_input_data_frame()
+        logging.info(f"Avila test DataFrame is {avila_df}")
         avila_predictor = AuthorPredictor(model_dir=MODEL_DIR)
         author_name = avila_predictor.predict(X=avila_df)
         context = {
-            AVILA_DATA_KEY: author_data.get_housing_data_as_dict(),
+            AVILA_DATA_KEY: author_data.get_Avila_data_as_dict(),
             AUTHOR_VALUE_KEY: author_name,
         }
         return render_template('predict.html', context=context)

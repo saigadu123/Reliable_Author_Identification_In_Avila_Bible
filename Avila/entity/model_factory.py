@@ -40,7 +40,7 @@ def evaluate_classification_model(model_list:list,x_train:np.ndarray,y_train:np.
             #Getting prediction for both training and testing dataset
             train_pred = model.predict(x_train)
             test_pred = model.predict(x_test)
-            logging.info(f"Test data columns is ")
+            logging.info(f"shape of the x_test is {x_test.shape} and {x_test[:2,:]} ")
             logging.info(f" y_train shape {y_train.shape} and train_pred shape{train_pred.shape}")
             
             #Calculating roc_auc_score for training and testing datasets
