@@ -51,7 +51,7 @@ class AuthorData:
                 "inter_linear_spacing":[self.inter_linear_spacing],
                 "weight":[self.weight],
                 "peak_number":[self.peak_number],
-                "modular_per_inter": [self.modular_per_inter]
+                "modular_ratio/inter_linear_spacing": [self.modular_per_inter]
             }
             return input_data 
         except Exception as e:
