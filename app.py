@@ -59,7 +59,7 @@ def render_artifact_dir(req_path):
     }
     return render_template('files.html', result=result)
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['POST'])
 def index():
     try:
         return render_template('index.html')
@@ -200,3 +200,5 @@ def render_log_dir(req_path):
     return render_template('log_files.html', result=result)
 
 
+if __name__ == "__main__":
+    app.run()
